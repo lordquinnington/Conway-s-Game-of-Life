@@ -9,6 +9,7 @@ def displayGUI():
     pygame.display.set_caption("Game of Life")
 
     running = True
+    play = True
 
     generation = 0
 
@@ -19,10 +20,12 @@ def displayGUI():
     blueHover = (95,170,255)
     bluePressed = (60,140,225)
     orange = (249,116,95)
+    darkGrey = (61,57,58)
 
     font1 = pygame.font.SysFont('verdana',40)
     font2 = pygame.font.SysFont('verdana',25)
     font3 = pygame.font.SysFont('verdana',20)
+    font4 = pygame.font.SysFont('verdana',30)
     
 
     while running:
@@ -61,6 +64,22 @@ def displayGUI():
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pygame.draw.rect(display,bluePressed,(580,90*i+60,250,60),border_radius=4)
+
+        display.blit(font4.render("Random Start",False,darkGrey),(600,70))
+        display.blit(font4.render("Custom Start",False,darkGrey),(600,160))
+        display.blit(font4.render("Reset",False,darkGrey),(660,250))
+        display.blit(font4.render("Start!",False,darkGrey),(660,340))
+
+        pygame.draw.rect(display,blue,(580,485,250,60),border_radius=4)
+
+        if (580) < mousePos[0] < (830) and (485) < mousePos[1] < (545):
+            pygame.draw.rect(display,blueHover,(580,485,250,60),border_radius=4)
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.draw.rect(display,bluePressed,(580,485,250,60),border_radius=4)
+
+        if play:
+            display.blit(font4.render("Stop",False,darkGrey),(665,495))
 
 
         ################################ stats on the right ################################
