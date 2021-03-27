@@ -89,8 +89,12 @@ def displayGUI():
                         customStart = True
 
                     if i == 3:
+                        if started:
+                            grid = [[False for i in range(69)] for j in range(69)]
+                            generation = 0
+                            play = True
+                            
                         started = not started
-                        grid = nextGeneration(grid)
 
             if started and 0 <= i <= 2:
                 pygame.draw.rect(display,blueHover,(580,90*i+60,250,60),border_radius=4)
@@ -116,6 +120,7 @@ def displayGUI():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pygame.draw.rect(display,bluePressed,(580,485,250,60),border_radius=4)
+
                 play = not play
 
         if play:
@@ -129,6 +134,13 @@ def displayGUI():
 
         display.blit(font2.render("Generations:",False,bluePressed),(580,410))
         display.blit(font3.render(str(generation),False,orange),(580,440))
+
+
+        ################################ running the simulation ################################
+
+        if started and play:
+            grid = nextGeneration(grid)
+            generation += 1
         
     
         pygame.display.flip()
@@ -167,8 +179,6 @@ def fate(x,y,gen):
 
     if gen[x][y]:
         liveNeighbours -= 1
-    #if liveNeighbours != 0:#
-    #    print(liveNeighbours,"(",x,y,")")#
 
     if not gen[x][y]:
         if liveNeighbours == 3:
